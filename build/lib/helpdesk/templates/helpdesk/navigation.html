@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static from staticfiles %}
 
 <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -9,28 +10,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'helpdesk:home' %}">{% trans 'Helpdesk' %}</a>
+                <div class="navbar-brand" style="background-color:rgb(31, 61, 123); padding:0; margin:0" height="50" ><img src ="{% static 'helpdesk/img/calcgen.png' %}" ></div>
             </div>
             <!-- /.navbar-header -->
 
-            <div class="collapse navbar-collapse" id="helpdesk-nav-collapse">
+            <div class="collapse navbar-collapse" id="helpdesk-nav-collapse" style ="background-color:rgb(31, 61, 123); ">
             {% if helpdesk_settings.HELPDESK_NAVIGATION_ENABLED and user.is_authenticated or user.is_staff %}
-            <ul class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right" style="background-color:rgb(31, 61, 123); ">
+                
                 <li>
-                    <a href='{% url 'helpdesk:dashboard' %}'><i class="fa fa-dashboard fa-fw"></i> <span class="nav-text">{% trans "Dashboard" %}</span></a>
+                    <a href='{% url 'helpdesk:dashboard' %}'><i class="fa fa-dashboard fa-fw" style="color: #666666"></i> <span class="nav-text" style="color: #666666">{% trans "Dashboard" %}</span></a>
                 </li>
                 <li>
-                    <a href='{% url 'helpdesk:list' %}'><i class="fa fa-tasks fa-fw"></i> <span class="nav-text">{% trans "Tickets" %}</span></a>
+                    <a href='{% url 'helpdesk:list' %}'><i class="fa fa-tasks fa-fw" style="color: #666666"></i> <span class="nav-text" style="color: #666666">{% trans "Tickets" %}</span></a>
                 </li>
                 <li>
-                    <a href='{% url 'helpdesk:submit' %}'><i class="fa fa-plus-circle fa-fw"></i> <span class="nav-text">{% trans "New Ticket" %}</span></a>
+                    <a href='{% url 'helpdesk:submit' %}'><i class="fa fa-plus-circle fa-fw" style="color: #666666"></i> <span class="nav-text" style="color: #666666">{% trans "New Ticket" %}</span></a>
                 </li>
                 <li>
-                    <a href='{% url 'helpdesk:report_index' %}'><i class="fa fa-bar-chart-o fa-fw"></i> <span class="nav-text"> {% trans "Stats" %}</span></a>
+                    <a href='{% url 'helpdesk:report_index' %}'><i class="fa fa-bar-chart-o fa-fw" style="color: #666666">  </i> <span class="nav-text" style="color: #666666"> {% trans "Stats" %}</span></a>
                 </li>
                 {% if helpdesk_settings.HELPDESK_KB_ENABLED %}
                 <li>
-                    <a href='{% url 'helpdesk:kb_index' %}'><i class="fa fa-database fa-fw"></i> <span class="nav-text">{% trans "Knowledgebase" %}</span></a>
+                    <a href='{% url 'helpdesk:kb_index' %}'><i class="fa fa-database fa-fw" style="color: #666666"></i> <span class="nav-text" style="color: #666666">{% trans "Knowledgebase" %}</span></a>
                 </li>
 
                 {% endif %}
