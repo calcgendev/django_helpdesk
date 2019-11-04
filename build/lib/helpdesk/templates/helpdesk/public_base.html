@@ -1,3 +1,4 @@
+{% extends HELPDESK_BASE_HTML %}
 {% load i18n %}
 {% load load_helpdesk_settings %}
 {% load static from staticfiles %}
@@ -14,7 +15,8 @@
     <meta name="author" content="">
 
     <title>{% block helpdesk_title %}{% trans 'Helpdesk' %}{% endblock %}</title>
-
+    {% block css %}
+    {{ block.super }}
     <!-- Bootstrap Core CSS -->
     {% if helpdesk_settings.HELPDESK_USE_CDN %}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +32,7 @@
     <link rel='stylesheet' href='{% static "helpdesk/helpdesk-extend.css" %}' type='text/css'  media="screen" >
 
     <!-- Custom Fonts -->
-    <link href="{% static 'helpdesk/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    {% comment %} <link href="{% static 'helpdesk/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,22 +42,22 @@
     <![endif]-->
 
     {% block helpdesk_head %}{% endblock %}
-
+    {% endblock css %}
 </head>
 
 <body id="helpdesk-body">
-
+    {% block maincontent %}
     <div id='container' class="container">
-        <div id='header' class="row">
+        {% comment %} <div id='header' class="row">
             <h1>{% block h1_title %}{% trans "Helpdesk" %}{% endblock %}</h1>
             {% include "helpdesk/navigation.html" %}
-        </div>
+        </div> {% endcomment %}
 
-        <div id='body' class="row">
+        <div id='body' class="row1">
             {% block helpdesk_body %}{% endblock %}
         </div>
 
-        <div id='footer' class="row">
+        <div id='footer' class="row1">
             <div class="col-md-2">{% include "helpdesk/attribution.html" %}</div>
         </div>
     </div>
@@ -81,7 +83,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'helpdesk/dist/js/sb-admin-2.js' %}"></script>
-
+    {% endblock maincontent %}
 </body>
 </html>
 {% endwith %}

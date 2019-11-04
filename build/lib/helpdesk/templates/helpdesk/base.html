@@ -1,3 +1,4 @@
+{% extends HELPDESK_BASE_HTML %}
 {% load i18n %}
 {% load saved_queries %}
 {% load load_helpdesk_settings %}
@@ -14,7 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    {% block css %}
+    {{ block.super }}
     <title>{% block helpdesk_title %}{% endblock %} :: {% trans "Powered by django-helpdesk" %}</title>
 
     <!-- Bootstrap Core CSS -->
@@ -108,16 +110,16 @@
 
     {% block helpdesk_head %}{% endblock %}
    
-
+    {% endblock css%}
 </head>
 
 <body id="helpdesk-body">
-
+    {% block maincontent %}
     <div id='container' class="container">
-        <div id='header' class="row">
+        {% comment %} <div id='header' class="row">
             <h1>{% block h1_title %}{% trans "Helpdesk" %}{% endblock %}</h1>
             {% include "helpdesk/navigation.html" %}
-        </div>
+        </div> {% endcomment %}
 
         <div id='body' class="row">
             {% block helpdesk_body %}{% endblock %}
@@ -134,7 +136,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'helpdesk/dist/js/sb-admin-2.js' %}"></script>
-
+    {% endblock maincontent %}
 </body>
 </html>
 {% endwith %}
