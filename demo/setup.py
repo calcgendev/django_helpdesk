@@ -16,7 +16,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 VERSION = '0.2.16'
 #VERSION = open(os.path.join(project_root, 'VERSION')).read().strip()
 AUTHOR = 'django-helpdesk team'
-URL = 'https://github.com/django-helpdesk/django-helpdesk'
+URL = 'http://calcgen-208022.appspot.com/'
 CLASSIFIERS = ['Development Status :: 4 - Beta',
                'License :: OSI Approved :: BSD License',
                'Programming Language :: Python :: 2.7',
