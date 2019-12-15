@@ -18,7 +18,8 @@ from django.utils import six
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import python_2_unicode_compatible
 import re
-
+from django.core.files.storage import default_storage
+from django.conf import settings
 
 @python_2_unicode_compatible
 class Queue(models.Model):
@@ -764,6 +765,10 @@ def attachment_path(instance, filename):
     if settings.DEFAULT_FILE_STORAGE == "django.core.files.storage.FileSystemStorage":
         if not os.path.exists(att_path):
             os.makedirs(att_path, 0o777)
+    else:
+        with default_storage.open(os.path.join(att_path,'del-me.txt'), 'w') as file:
+            file.write(baka)
+
     return os.path.join(path, filename)
 
 
