@@ -767,7 +767,7 @@ def attachment_path(instance, filename):
             os.makedirs(att_path, 0o777)
     else:
         with default_storage.open(os.path.join(att_path,'del-me.txt'), 'w') as file:
-            file.write(baka)
+            file.write('baka')
 
     return os.path.join(path, filename)
 
