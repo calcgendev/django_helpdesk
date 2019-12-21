@@ -170,11 +170,11 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
     #     label=_('Due on'),
     # )
 
-    attachment = forms.FileField(
-        required=False,
-        label=_('Attach File'),
-        help_text=_('You can attach a file such as a document or screenshot to this ticket.'),
-    )
+    # attachment = forms.FileField(
+    #     required=False,
+    #     label=_('Attach File'),
+    #     help_text=_('You can attach a file such as a document or screenshot to this ticket.'),
+    # )
 
     def _add_form_custom_fields(self, staff_only_filter=None):
         if staff_only_filter is None:
@@ -227,14 +227,14 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
             followup.user = user
         return followup
 
-    def _attach_files_to_follow_up(self, followup):
-        files = self.cleaned_data['attachment']
-        if files:
-            files = process_attachments(followup, [files])
-        return files
+    # def _attach_files_to_follow_up(self, followup):
+    #     files = self.cleaned_data['attachment']
+    #     if files:
+    #         files = process_attachments(followup, [files])
+    #     return files
 
     @staticmethod
-    def _send_messages(ticket, queue, followup, files, user=None):
+    def _send_messages(ticket, queue, followup, files=None, user=None):
         context = safe_template_context(ticket)
         context['comment'] = followup.comment
 
@@ -247,7 +247,7 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
                 recipients=ticket.submitter_email,
                 sender=queue.from_address,
                 fail_silently=True,
-                files=files,
+                # files=files,
             )
             messages_sent_to.append(ticket.submitter_email)
 
@@ -262,7 +262,7 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
                 recipients=ticket.assigned_to.email,
                 sender=queue.from_address,
                 fail_silently=True,
-                files=files,
+                # files=files,
             )
             messages_sent_to.append(ticket.assigned_to.email)
 
@@ -273,7 +273,7 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
                 recipients=queue.new_ticket_cc,
                 sender=queue.from_address,
                 fail_silently=True,
-                files=files,
+                # files=files,
             )
             messages_sent_to.append(queue.new_ticket_cc)
 
@@ -286,7 +286,7 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
                 recipients=queue.updated_ticket_cc,
                 sender=queue.from_address,
                 fail_silently=True,
-                files=files,
+                # files=files,
             )
 
 
@@ -343,11 +343,11 @@ class TicketForm(AbstractTicketForm):
         followup = self._create_follow_up(ticket, title=title, user=user)
         followup.save()
 
-        files = self._attach_files_to_follow_up(followup)
+        # files = self._attach_files_to_follow_up(followup)
         self._send_messages(ticket=ticket,
                             queue=queue,
                             followup=followup,
-                            files=files,
+                            # files=files,
                             user=user)
         return ticket
 
@@ -392,11 +392,11 @@ class PublicTicketForm(AbstractTicketForm):
         followup = self._create_follow_up(ticket, title=_('Ticket Opened Via Web'))
         followup.save()
 
-        files = self._attach_files_to_follow_up(followup)
+        # files = self._attach_files_to_follow_up(followup)
         self._send_messages(ticket=ticket,
                             queue=queue,
-                            followup=followup,
-                            files=files)
+                            followup=followup)
+                            # files=files)
         return ticket
 
 
