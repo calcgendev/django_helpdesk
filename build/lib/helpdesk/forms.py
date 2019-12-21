@@ -164,11 +164,11 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
         help_text=_("Please select a priority carefully. If unsure, leave it as '3'."),
     )
 
-    due_date = forms.DateTimeField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=False,
-        label=_('Due on'),
-    )
+    # due_date = forms.DateTimeField(
+    #     widget=forms.TextInput(attrs={'class': 'form-control'}),
+    #     required=False,
+    #     label=_('Due on'),
+    # )
 
     attachment = forms.FileField(
         required=False,
@@ -201,7 +201,7 @@ class AbstractTicketForm(CustomFieldMixin, forms.Form):
                         queue=queue,
                         description=self.cleaned_data['body'],
                         priority=self.cleaned_data['priority'],
-                        due_date=self.cleaned_data['due_date'],
+                        # due_date=self.cleaned_data['due_date'],
                         )
 
         return ticket, queue
@@ -373,8 +373,8 @@ class PublicTicketForm(AbstractTicketForm):
             self.fields['queue'].widget = forms.HiddenInput()
         if hasattr(settings, 'HELPDESK_PUBLIC_TICKET_PRIORITY'):
             self.fields['priority'].widget = forms.HiddenInput()
-        if hasattr(settings, 'HELPDESK_PUBLIC_TICKET_DUE_DATE'):
-            self.fields['due_date'].widget = forms.HiddenInput()
+        # if hasattr(settings, 'HELPDESK_PUBLIC_TICKET_DUE_DATE'):
+        #     self.fields['due_date'].widget = forms.HiddenInput()
 
         self._add_form_custom_fields(False)
 
